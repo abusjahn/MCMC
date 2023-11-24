@@ -91,7 +91,7 @@ for(step_i in 2:n_moves){
 }
 ```
 
-```{r no burnin}
+```{r no burnin filter all data}
 visits <- moves |> 
   group_by(position) |> 
   summarise(Visits=n()) |> 
@@ -130,7 +130,7 @@ ggplot(visits,aes(.data[[pop_selected]],Visits))+
   geom_label_repel(aes(label=County),nudge_x = 0, nudge_y = 100)+
   scale_shape_manual(values=LETTERS, guide = NULL)+
   scale_x_continuous(breaks=seq(0,10^5,10^4))+
-    scale_y_continuous(breaks=seq(0,10^5,10^2))+
+    scale_y_continuous(breaks=seq(0,10^5,10^3))+
   ggtitle('Only moves after burn-in analyzed')
 ```
 
@@ -172,4 +172,30 @@ moves |>
   geom_line()+
   scale_y_continuous(breaks=1:9,
                      labels = LETTERS[1:9])
+moves |> 
+  filter(move>99000) |>
+  ggplot(aes(move,position))+
+  # geom_point()+
+  geom_line()+
+  scale_y_continuous(breaks=1:9,
+                     labels = LETTERS[1:9])
+
+moves |> 
+  # filter(move<=n_burnin) |>
+  ggplot(aes(move,position))+
+  # geom_point()+
+  geom_line()+
+  scale_x_continuous(limits = c(1,30))+
+  scale_y_continuous(breaks=1:9,
+                     labels = LETTERS[1:9])
+
+moves |> 
+  # filter(move<=n_burnin) |>
+  ggplot(aes(move,position))+
+  # geom_point()+
+  geom_line()+
+  # scale_x_continuous(limits = c(1,30))+
+  scale_y_continuous(breaks=1:9,
+                     labels = LETTERS[1:9])+
+  coord_cartesian(xlim=c(1,30))
 ```
