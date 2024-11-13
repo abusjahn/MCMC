@@ -31,7 +31,7 @@ execute:
 ```{r preparation}
 #| layout-align: left
 pacman::p_load(wrappedtools, tidyverse, ggrepel, ggforce, 
-               ggnewscale, ggtext)
+               ggnewscale, ggtext, tictoc)
 
 set.seed(1012)
 counties <- tibble(County = LETTERS[1:9],
@@ -77,7 +77,6 @@ n_moves <- 10^5
 n_burnin <- 10^3
 start_county <- 5
 ```
-
 
 ```{r data structure moves}
 moves <- tibble(move=seq_len(n_moves),
@@ -180,7 +179,6 @@ ggplot(visits,aes(.data[[pop_selected]],Visits))+
 cat("<br>\n\n")
 
 ```
-
 
 ```{r}
 #| fig.width: 8
@@ -296,7 +294,6 @@ ggplot(circle_data, aes(x = x, y = y)) +
   guides(size="none", linewidth="none", color="none")+
   theme_void()  # Remove background gridlines
 ```
-
 
 ```{r just burnin}
 visits <- moves |>
